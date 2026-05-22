@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>UStayEase - Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body data-page="home">
+    <div class="site-shell">
+        <header class="topbar"><a class="brand" href="index.html"><span class="brand-logo"
+                    data-brand-logo>US</span><span data-site-name>UStayEase</span></a>
+            <nav class="nav"><a href="index.html">Home</a><a href="index.html#properties">Property</a><a
+                    href="booking.html">Booking</a><a href="history.html">Riwayat</a></nav>
+            <div class="actions"><button class="btn light small" id="loginBtn">Login</button><button class="menu-btn"
+                    id="drawerOpen">☰</button></div>
+        </header>
+        <aside class="drawer" id="drawer">
+            <div class="drawer-head">
+                <div class="brand"><span class="brand-logo" data-brand-logo>US</span><span
+                        data-site-name>UStayEase</span></div><button class="icon-btn" id="drawerClose">×</button>
+            </div>
+            <div class="role-card"><span>Status akun</span><strong id="roleName">Pengunjung</strong></div>
+            <nav class="drawer-links" id="drawerLinks"></nav>
+        </aside>
+        <div class="overlay" id="overlay"></div>
+        <main>
+            <div class="system-alert hidden" data-system-maintenance>⚠️ Sistem sedang maintenance. User tetap bisa
+                melihat property, tetapi booking sementara ditutup.</div>
+            <section class="hero">
+                <div class="hero-inner">
+                    <div class="tabs filter-tabs"><button class="tab active" data-filter="all">🏨 Semua</button><button
+                            class="tab" data-filter="Villa">🏡 Villa</button><button class="tab"
+                            data-filter="Apartment">🏢 Apartment</button><button class="tab" data-filter="HotelRoom">🛏️
+                            Hotel Room</button></div>
+                    <h1>Temukan akomodasi berikutnya.</h1>
+                    <p>Cari villa, apartment, dan hotel room dengan harga weekday/weekend, validasi maintenance, dan
+                        booking yang mudah.</p>
+                    <div class="hero-info-card">
+                        <div><span class="mini-label">Booking Engine</span><b>Sistem UStayEase menghitung harga
+                                otomatis, mengecek maintenance, dan membuat struk booking.</b></div><a
+                            class="btn yellow" href="#properties">Lihat Property</a>
+                    </div>
+                </div>
+            </section>
+            <section class="section features">
+                <div class="feature"><b>Harga dinamis</b><span class="muted">Weekday dan weekend dihitung otomatis dari
+                        tanggal menginap.</span></div>
+                <div class="feature"><b>Maintenance guard</b><span class="muted">Unit yang sedang perbaikan tidak dapat
+                        dipesan.</span></div>
+                <div class="feature"><b>Struk booking</b><span class="muted">Setelah pesan, user dapat mencetak bukti
+                        booking.</span></div>
+            </section>
+            <section id="properties" class="section">
+                <div class="section-head">
+                    <div>
+                        <p class="eyebrow">Property</p>
+                        <h2>Pilih tempat menginap</h2>
+                    </div><button class="btn light" id="refreshProperties">Refresh</button>
+                </div>
+                <div class="property-grid" id="propertyGrid"></div>
+            </section>
+        </main>
+        <footer class="footer">
+            <div><b data-site-name>UStayEase</b>
+                <p>Mini booking engine untuk UAS PBO.</p>
+            </div>
+            <p>Developed by JastStudio</p>
+        </footer>
+        <div class="modal hidden" id="loginModal">
+            <div class="modal-card"><button class="modal-close" id="closeLogin">×</button>
+                <p class="eyebrow">Akun Customer</p>
+                <h2>Login / Daftar</h2>
+                <p class="muted">Customer wajib punya akun email sebelum booking. Admin login memakai email khusus.</p>
+                <div class="auth-tabs"><button class="active" data-auth-tab="login">Login</button><button
+                        data-auth-tab="register">Daftar</button></div>
+                <div data-auth-panel="login" class="form-grid one"><label>Email<input id="loginEmail" type="email"
+                            placeholder="nama@email.com"></label><label>Password <span class="muted">admin wajib isi,
+                            user boleh kosong jika akun demo</span><input id="loginPassword" type="password"
+                            placeholder="Password"></label><button class="btn full" id="doLogin">Masuk</button></div>
+                <div data-auth-panel="register" class="form-grid one hidden"><label>Nama Lengkap<input id="registerName"
+                            placeholder="Nama customer"></label><label>Email<input id="registerEmail" type="email"
+                            placeholder="nama@email.com"></label><label>No HP<input id="registerPhone"
+                            placeholder="08123456789"></label><label>Password Akun<input id="registerPassword"
+                            type="password" placeholder="Boleh isi user123"></label><button class="btn full green"
+                        id="doRegister">Daftar & Login</button></div>
+                <p class="muted auth-note">Admin demo: admin@ustayease.com / admin123. Role admin ditentukan dari
+                    database tabel users, bukan dari pilihan dropdown.</p>
+            </div>
+        </div>
+        <div id="toast" class="toast"></div>
+        <script src="js/config.js"></script>
+        <script src="js/api.js"></script>
+        <script src="js/app.js"></script>
+    </div>
+</body>
+
+</html>

@@ -253,4 +253,10 @@ function bindEvents(){
   safe('#resetBranding', el => el.addEventListener('click',()=>{ localStorage.removeItem('siteName'); localStorage.removeItem('logoText'); localStorage.removeItem('siteLogoImage'); pendingLogoImage=''; initBranding(); toast('Branding direset.'); }));
 }
 
-protectAdminPage(); initBranding(); renderSession(); bindEvents(); loadData();
+document.addEventListener("DOMContentLoaded", () => {
+  protectAdminPage();
+  initBranding();
+  renderSession();
+  bindEvents();
+  loadData();
+});

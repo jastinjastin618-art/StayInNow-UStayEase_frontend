@@ -30,7 +30,7 @@ function setLogoElement(el, logoText, logoImage) {
   else el.textContent = logoText;
 }
 function initBranding() {
-  const name = localStorage.getItem('siteName') || 'UStayEase';
+  const name = localStorage.getItem('siteName') || 'StayInNow';
   const logoText = localStorage.getItem('logoText') || 'US';
   const logoImage = localStorage.getItem('siteLogoImage') || '';
   qsa('[data-site-name]').forEach(el => el.textContent = name);
@@ -249,7 +249,7 @@ function bindEvents(){
   safe('#addPropertyForm', el => el.addEventListener('submit',handleAddProperty));
   safe('#propertyImageInput', el => el.addEventListener('change', async () => { if(el.files[0]){ pendingPropertyImage = await fileToDataUrl(el.files[0]); safe('#propertyImagePreview', img => img.src = pendingPropertyImage); } }));
   safe('#logoImageInput', el => el.addEventListener('change', async () => { if(el.files[0]){ pendingLogoImage = await fileToDataUrl(el.files[0]); initBranding(); toast('Logo dipilih. Klik Simpan Branding.'); } }));
-  safe('#saveBranding', el => el.addEventListener('click',()=>{ localStorage.setItem('siteName', qs('#siteNameInput').value || 'UStayEase'); localStorage.setItem('logoText', qs('#logoTextInput').value || 'US'); if(pendingLogoImage) localStorage.setItem('siteLogoImage', pendingLogoImage); initBranding(); toast('Branding disimpan.'); }));
+  safe('#saveBranding', el => el.addEventListener('click',()=>{ localStorage.setItem('siteName', qs('#siteNameInput').value || 'StayInNow'); localStorage.setItem('logoText', qs('#logoTextInput').value || 'US'); if(pendingLogoImage) localStorage.setItem('siteLogoImage', pendingLogoImage); initBranding(); toast('Branding disimpan.'); }));
   safe('#resetBranding', el => el.addEventListener('click',()=>{ localStorage.removeItem('siteName'); localStorage.removeItem('logoText'); localStorage.removeItem('siteLogoImage'); pendingLogoImage=''; initBranding(); toast('Branding direset.'); }));
 }
 

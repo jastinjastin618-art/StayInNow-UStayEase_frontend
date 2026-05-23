@@ -42,21 +42,21 @@ function initBranding() {
 
 function renderSession() {
   safe('#roleName', el => el.textContent = session ? (isAdmin() ? 'Administrator' : session.email) : 'Pengunjung');
-  safe('#loginBtn', el => el.textContent = session ? (isAdmin() ? 'Admin' : 'Akun') : 'Login');
+  safe('#loginBtn', el => el.textContent = session ? (isAdmin() ? 'Admin' : 'Akun') : 'Masuk');
   renderDrawerLinks();
 }
 function renderDrawerLinks() {
   const box = qs('#drawerLinks'); if (!box) return;
   const links = [
-    ['index.html', '🏠 Home'],
+    ['index.html', '🏠 Beranda'],
     ['index.html#properties', '🏡 Lihat Property'],
-    ['booking.html', '🧾 Booking'],
-    ['history.html', '📚 Riwayat Booking']
+    ['booking.html', '🧾 Pemesanan'],
+    ['history.html', '📚 Riwayat']
   ];
   let html = links.map(([href,label]) => `<a href="${href}">${label}</a>`).join('');
-  if (isAdmin()) html += `<a href="admin.html">⚙️ Dashboard Admin</a><button type="button" onclick="logout()">🚪 Logout</button>`;
-  else if (session) html += `<button type="button" onclick="logout()">🚪 Logout User</button>`;
-  else html += `<button type="button" onclick="openLogin()">🔐 Login</button>`;
+  if (isAdmin()) html += `<a href="admin.html">⚙️ Dasbor</a><button type="button" onclick="logout()">🚪 Keluar</button>`;
+  else if (session) html += `<button type="button" onclick="logout()">🚪 Keluar</button>`;
+  else html += `<button type="button" onclick="openLogin()">🔐 Masuk</button>`;
   box.innerHTML = html;
 }
 function openDrawer(){ safe('#drawer', el => el.classList.add('open')); safe('#overlay', el => el.classList.add('show')); }

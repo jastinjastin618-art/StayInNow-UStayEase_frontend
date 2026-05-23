@@ -96,5 +96,9 @@ const API = {
 
   receiptTxtUrl(id) {
     return `${this.base}/receipts/${id}.txt`;
+  },
+
+  receiptCsvUrl(id) {
+    return `${this.base}/bookings/${id}/receipt.csv`;
   }
 };

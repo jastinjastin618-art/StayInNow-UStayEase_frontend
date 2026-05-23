@@ -98,7 +98,7 @@ function renderProperties(){
 }
 
 function fillBookingOptions(){
-  safe('#bookingProperty', el => {
+  safe('#pemesananProperty', el => {
     el.innerHTML = properties.map(p => `<option value="${p.id}" ${(systemMaintenance || p.status === 'maintenance') ? 'disabled' : ''}>${p.name} - ${p.location}${p.status === 'maintenance' ? ' (Maintenance)' : ''}</option>`).join('');
     const params = new URLSearchParams(location.search);
     const selected = params.get('property');
@@ -108,7 +108,7 @@ function fillBookingOptions(){
 function renderBookings(){
   const box = qs('#pemesananList');
   if(!box) return;
-  box.innerHTML = bookings.map(b => `<div class="booking-item"><div><b>#${b.id} • ${b.property_name}</b><p class="muted">${b.customer_name} • ${b.check_in} to ${b.check_out} • ${b.guests} guests</p><span class="badge ${b.status || 'paid'}">${b.status || 'paid'}</span></div><div><b>${rupiah(b.total_price)}</b><div class="receipt-actions"><button class="btn light small" onclick="showHistoryReceipt('${b.id}')">Print</button><a class="btn ghost small" href="${API.receiptTxtUrl(b.id)}" target="_blank">Download TXT</a></div></div></div>`).join('') || `<div class="empty-state">No booking history yet.</div>`;
+  box.innerHTML = bookings.map(b => `<div class="booking-item"><div><b>#${b.id} • ${b.property_name}</b><p class="muted">${b.customer_name} • ${b.check_in} to ${b.check_out} • ${b.guests} guests</p><span class="badge ${b.status || 'paid'}">${b.status || 'paid'}</span></div><div><b>${rupiah(b.total_price)}</b><div class="receipt-actions"><a class="btn light small" href="${API.receiptTxtUrl(b.id)}" target="_blank">Download TXT</a><a class="btn ghost small" href="${API.receiptCsvUrl(b.id)}" target="_blank">Download CSV</a></div></div></div>`).join('') || `<div class="empty-state">No booking history yet.</div>`;
 }
 function showHistoryReceipt(id){
   const b = bookings.find(x => String(x.id) === String(id));
@@ -143,7 +143,7 @@ function daysBetween(a,b){ return Math.ceil((new Date(b) - new Date(a)) / 864000
 function estimatePrice(property, checkIn, checkOut){ let total=0, weekday=0, weekend=0; let d=new Date(checkIn); const end=new Date(checkOut); while(d<end){ const day=d.getDay(); if(day===0||day===6){ total+=Number(property.weekend_price); weekend++; } else { total+=Number(property.weekday_price); weekday++; } d.setDate(d.getDate()+1); } return {total,weekday,weekend}; }
 function updatePricePreview(){
   const preview = qs('#pricePreview'); if(!preview) return;
-  const p = properties.find(x => String(x.id) === String(qs('#bookingProperty')?.value));
+  const p = properties.find(x => String(x.id) === String(qs('#pemesananProperty')?.value));
   const ci = qs('#checkIn')?.value, co = qs('#checkOut')?.value;
   if(!p || !ci || !co){ preview.textContent = 'Pilih properti dan tanggal untuk melihat estimasi harga.'; return; }
   const nights = daysBetween(ci,co);
@@ -152,8 +152,9 @@ function updatePricePreview(){
   preview.innerHTML = `${nights} nights • ${est.weekday} weekday + ${est.weekend} weekend • Estimated <strong>${rupiah(est.total)}</strong>`;
 }
 function renderBookingDetail(){
-  const box = qs('#bookingDetail'); if(!box) return;
-  const selectedId = qs('#bookingProperty')?.value || new URLSearchParams(location.search).get('property');
+  const box = qs('#pemesananDetail');
+  if(!box) return;
+  const selectedId = qs('#pemesananProperty')?.value || new URLSearchParams(location.search).get('property');
   const p = properties.find(x => String(x.id) === String(selectedId)) || properties[0];
   if(!p){ box.innerHTML = '<div class="empty-state">Choose a property to view details.</div>'; return; }
   const facilities = Array.isArray(p.facilities) ? p.facilities : String(p.facilities || '').split(',').map(x=>x.trim()).filter(Boolean);
@@ -163,8 +164,21 @@ function renderBookingDetail(){
   box.innerHTML = `<div class="detail-card"><div class="detail-gallery"><div class="detail-main-image">${imageFromProperty(p) || '<span>Property Photo</span>'}</div><div class="gallery-mini"><div>Bedroom</div><div>Pool</div><div>Living Room</div></div></div><div class="detail-info"><p class="eyebrow">Detail Property</p><h2>${p.name}</h2><p class="muted">📍 ${p.location} • ${p.type}</p><div class="spec-grid"><div><b>${roomGuess}</b><span>Rooms</span></div><div><b>${bedGuess}</b><span>Beds</span></div><div><b>${p.max_guests || 2}</b><span>Max Guests</span></div><div><b>${p.rating || 4.8}</b><span>Rating</span></div></div><div class="facility-list">${facilityHtml}</div><div class="price-row"><div><span>Weekday</span><b>${rupiah(p.weekday_price)}</b></div><div><span>Weekend</span><b>${rupiah(p.weekend_price)}</b></div></div><p class="muted">This section can include room, pool, living room photos, and other details so customers can preview the property before booking.</p></div></div>`;
 }
 
-function makeReceiptHTML(b){ return `<div class="receipt" id="receiptPrintArea"><h3>Receipt / Booking Proof</h3><div class="receipt-row"><span>Booking ID</span><strong>#${b.booking_id || b.id}</strong></div><div class="receipt-row"><span>Customer</span><strong>${b.customer_name}</strong></div><div class="receipt-row"><span>Property</span><strong>${b.property_name}</strong></div><div class="receipt-row"><span>Check-in</span><strong>${b.check_in}</strong></div><div class="receipt-row"><span>Check-out</span><strong>${b.check_out}</strong></div><div class="receipt-row"><span>Guests</span><strong>${b.guests}</strong></div><div class="receipt-row"><span>Total</span><strong>${rupiah(b.total_price)}</strong></div><div class="receipt-row"><span>Status</span><strong>${b.status || 'paid'}</strong></div><div class="receipt-actions"><button class="btn light" onclick="window.print()">Print</button>${(b.booking_id || b.id) ? `<a class="btn ghost" href="${API.receiptTxtUrl(b.booking_id || b.id)}" target="_blank">Download TXT</a>` : ''}</div></div>`; }
-function showReceipt(b){ safe('#lastReceipt', el => el.innerHTML = makeReceiptHTML(b)); }
+function makeReceiptHTML(b){
+  return `<div class="receipt" id="receiptPrintArea"><h3>Receipt / Booking Proof</h3><div class="receipt-row"><span>Booking ID</span><strong>#${b.booking_id || b.id}</strong></div><div class="receipt-row"><span>Customer</span><strong>${b.customer_name}</strong></div><div class="receipt-row"><span>Property</span><strong>${b.property_name}</strong></div><div class="receipt-row"><span>Check-in</span><strong>${b.check_in}</strong></div><div class="receipt-row"><span>Check-out</span><strong>${b.check_out}</strong></div><div class="receipt-row"><span>Guests</span><strong>${b.guests}</strong></div><div class="receipt-row"><span>Total</span><strong>${rupiah(b.total_price)}</strong></div><div class="receipt-row"><span>Status</span><strong>${b.status || 'paid'}</strong></div><div class="receipt-actions">${(b.booking_id || b.id) ? `
+    <a class="btn light" 
+       href="${API.receiptTxtUrl(b.booking_id || b.id)}" 
+       target="_blank">
+       Download TXT
+    </a>
+
+    <a class="btn ghost" 
+       href="${API.receiptCsvUrl(b.booking_id || b.id)}" 
+       target="_blank">
+       Download CSV
+    </a>
+  ` : ''}</div></div>`; }
+function showReceipt(b){ safe('#lastStruk', el => el.innerHTML = makeReceiptHTML(b)); }
 function stepValue(id, delta){ const el=qs('#'+id); if(!el) return; const current=Number(el.value||1); const next=Math.max(1,Math.min(10,current+Number(delta))); el.value=next; updatePricePreview(); }
 
 async function fileToDataUrl(file){ return new Promise((resolve,reject)=>{ const reader=new FileReader(); reader.onload=()=>resolve(reader.result); reader.onerror=reject; reader.readAsDataURL(file); }); }
@@ -257,11 +271,11 @@ function bindEvents(){
   qsa('[data-filter]').forEach(btn => btn.addEventListener('click',()=>{ currentFilter = btn.dataset.filter; qsa('[data-filter]').forEach(x=>x.classList.toggle('active', x===btn)); renderProperties(); location.hash='properties'; }));
   safe('#searchForm', el => el.addEventListener('submit',e=>{ e.preventDefault(); location.href='index.html#properties'; toast('Please choose an available property.'); }));
   safe('#refreshProperties', el => el.addEventListener('click',loadData));
-  ['#bookingProperty','#checkIn','#checkOut'].forEach(sel => safe(sel, el => el.addEventListener('change',()=>{ updatePricePreview(); renderBookingDetail(); })));
+  ['#pemesananProperty','#checkIn','#checkOut'].forEach(sel => safe(sel, el => el.addEventListener('change',()=>{ updatePricePreview(); renderBookingDetail(); })));
   safe('#closeStrukModal', el => 
     el.addEventListener('click', closeReceiptModal)
   );
-  safe('#bookingForm', el => el.addEventListener('submit', async e => { e.preventDefault(); if(systemMaintenance) return toast('The system is under maintenance. Booking is temporarily closed.'); if(!isLoggedIn()){ openLogin(); return toast('Please register/login before booking.'); } try{ const payload={ property_id: qs('#bookingProperty').value, customer_name: qs('#customerName').value, customer_email: qs('#customerEmail').value, customer_phone: qs('#customerPhone').value, check_in: qs('#checkIn').value, check_out: qs('#checkOut').value, guests: Number(qs('#guests').value), payment_method: qs('#paymentMethod').value }; const result=await API.createBooking(payload); toast('Pemesanan berhasil.'); showReceipt(result); await loadData(); }catch(err){ toast(err.message); } }));
+  safe('#pemesananForm', el => el.addEventListener('submit', async e => { e.preventDefault(); if(systemMaintenance) return toast('The system is under maintenance. Booking is temporarily closed.'); if(!isLoggedIn()){ openLogin(); return toast('Please register/login before booking.'); } try{ const payload={ property_id: qs('#pemesananProperty').value, customer_name: qs('#customerName').value, customer_email: qs('#customerEmail').value, customer_phone: qs('#customerPhone').value, check_in: qs('#checkIn').value, check_out: qs('#checkOut').value, guests: Number(qs('#guests').value), payment_method: qs('#paymentMethod').value }; const result=await API.createBooking(payload); toast('Pemesanan berhasil.'); showReceipt(result); await loadData(); }catch(err){ toast(err.message); } }));
   safe('#adminDrawerOpen', el => el.addEventListener('click',openAdminDrawer));
   safe('#adminDrawerClose', el => el.addEventListener('click',closeAdminDrawer));
   safe('#adminMenuShortcut', el => el.addEventListener('click',openAdminDrawer));

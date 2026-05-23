@@ -1,95 +1,89 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>STAYINOW - beranda</title>
+    <title>StayInNow - beranda</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body data-page="home">
+<body data-page="beranda">
     <div class="site-shell">
         <header class="topbar"><a class="brand" href="index.html"><span class="brand-logo"
-                    data-brand-logo>SN</span><span data-site-name>STAYINOW</span></a>
-<nav class="nav"><a href="index.html">Beranda</a><a href="index.html#properties">Properti</a><a
-                    href="pemesanan.html">Pemesanan</a><a href="riwayat.html">Riwayat</a></nav>
-            <div class="actions"><button class="btn light small" id="loginBtn">Masuk</button><button class="menu-btn"
+                    data-brand-logo>SN</span><span data-site-name>StayInNow</span></a>
+<nav class="nav"><a href="index.html">Home</a><a href="index.html#properties">Properties</a><a
+                    href="booking.html">Booking</a><a href="history.html">History</a></nav>
+            <div class="actions"><button class="btn light small" id="loginBtn">Login</button><button class="menu-btn"
                     id="drawerOpen">☰</button></div>
         </header>
         <aside class="drawer" id="drawer">
             <div class="drawer-head">
                 <div class="brand"><span class="brand-logo" data-brand-logo>SN</span><span
-                        data-site-name>STAYINOW</span></div><button class="icon-btn" id="drawerClose">×</button>
+                        data-site-name>StayInNow</span></div><button class="icon-btn" id="drawerClose">×</button>
             </div>
-            <div class="role-card"><span>Status akun</span><strong id="roleName">Pengunjung</strong></div>
+            <div class="role-card"><span>Account status</span><strong id="roleName">Guest</strong></div>
             <nav class="drawer-links" id="drawerLinks"></nav>
         </aside>
         <div class="overlay" id="overlay"></div>
         <main>
-            <div class="system-alert hidden" data-system-maintenance>⚠️ Sistem sedang maintenance. Pengguna tetap bisa
-                melihat property, tetapi pemesanan sementara ditutup.</div>
+            <div class="system-alert hidden" data-system-maintenance>⚠️ The system is under maintenance. Users can still view properties, but booking is temporarily closed.</div>
             <section class="hero">
                 <div class="hero-inner">
-                    <div class="tabs filter-tabs"><button class="tab active" data-filter="all">🏨 Semua</button><button
+                    <div class="tabs filter-tabs"><button class="tab active" data-filter="all">🏨 All</button><button
                             class="tab" data-filter="Villa">🏡 Villa</button><button class="tab"
-                            data-filter="Apartment">🏢 Apartemen</button><button class="tab" data-filter="HotelRoom">🛏️
-                            Kamar Hotel</button></div>
-                    <h1>Temukan akomodasi berikutnya.</h1>
-                    <p>Cari villa, apartemen, dan kamar hotel dengan harga hari biasa/akhir pekan, validasi maintenance, dan
-                        pemesanan yang mudah.</p>
+                            data-filter="Apartment">🏢 Apartment</button><button class="tab" data-filter="HotelRoom">🛏️
+                            Hotel Room</button></div>
+                    <h1>Find your next stay.</h1>
+                    <p>Cari villa, apartment, dan hotel room dengan harga weekday/weekend, validasi maintenance, dan
+                        booking yang mudah.</p>
                     <div class="hero-info-card">
-                        <div><span class="mini-label">Pemesanan Engine</span><b>Sistem STAYINOW menghitung harga
-                                otomatis, mengecek maintenance, dan membuat struk pemesanan.</b></div><a
-                            class="btn yellow" href="#properties">Lihat Properti</a>
+                        <div><span class="mini-label">Booking Engine</span><b>StayInNow calculates prices automatically, checks maintenance status, and generates booking receipts.</b></div><a
+                            class="btn yellow" href="#properties">View Properties</a>
                     </div>
                 </div>
             </section>
             <section class="section features">
-                <div class="feature"><b>Harga dinamis</b><span class="muted">Hari Biasa dan weekend dihitung otomatis dari
-                        tanggal menginap.</span></div>
-                <div class="feature"><b>Maintenance guard</b><span class="muted">Unit yang sedang perbaikan tidak dapat
-                        dipesan.</span></div>
-                <div class="feature"><b>Struk pemesanan</b><span class="muted">Setelah pesan, pengguna dapat mencetak bukti
-                        pemesanan.</span></div>
+                <div class="feature"><b>Dynamic pricing</b><span class="muted">Weekday and weekend rates are calculated automatically from the stay dates.</span></div>
+                <div class="feature"><b>Maintenance guard</b><span class="muted">Units under maintenance cannot be booked.</span></div>
+                <div class="feature"><b>Booking receipt</b><span class="muted">After booking, users can print a booking receipt.</span></div>
             </section>
             <section id="properties" class="section">
                 <div class="section-head">
                     <div>
-<p class="eyebrow">Properti</p>
-                        <h2>Pilih tempat menginap</h2>
-                    </div><button class="btn light" id="refreshProperties">Muat Ulang</button>
+<p class="eyebrow">Property</p>
+                        <h2>Choose your stay</h2>
+                    </div><button class="btn light" id="refreshProperties">Refresh</button>
                 </div>
                 <div class="property-grid" id="propertyGrid"></div>
             </section>
         </main>
         <footer class="footer">
-            <div><b data-site-name>STAYINOW</b>
-                <p>Mini pemesanan engine untuk UAS PBO.</p>
+            <div><b data-site-name>StayInNow</b>
+                <p>Mini booking engine for the PBO final project.</p>
             </div>
             <p>Developed by JastStudio</p>
         </footer>
         <div class="modal hidden" id="loginModal">
-            <div class="modal-card"><button class="modal-close" id="closeMasuk">×</button>
-                <p class="eyebrow">Akun Pelanggan</p>
-                <h2>Masuk / Daftar</h2>
-                <p class="muted">Pelanggan wajib punya akun email sebelum pemesanan. Admin login memakai email khusus.</p>
-                <div class="auth-tabs"><button class="active" data-auth-tab="login">Masuk</button><button
-                        data-auth-tab="register">Daftar</button></div>
+            <div class="modal-card"><button class="modal-close" id="closeLogin">×</button>
+                <p class="eyebrow">Customer Account</p>
+                <h2>Login / Register</h2>
+                <p class="muted">Customers need an email account before booking. Admins use registered admin emails.</p>
+                <div class="auth-tabs"><button class="active" data-auth-tab="login">Login</button><button
+                        data-auth-tab="register">Register</button></div>
                 <div data-auth-panel="login" class="form-grid one"><label>Email<input id="loginEmail" type="email"
-                            placeholder="nama@email.com"></label><label>Password <span class="muted">admin wajib isi,
-                            pengguna boleh kosong jika </span><input id="loginPassword" type="password"
-                            placeholder="Password"></label><button class="btn full" id="doMasuk">Masuk</button></div>
-                <div data-auth-panel="register" class="form-grid one hidden"><label>Nama Lengkap<input id="registerName"
-                            placeholder="Nama pelanggan"></label><label>Email<input id="registerEmail" type="email"
-                            placeholder="nama@email.com"></label><label>No HP<input id="registerPhone"
-                            placeholder="08123456789"></label><label>Password Akun<input id="registerPassword"
-                            type="password" placeholder="Boleh isi pengguna123"></label><button class="btn full green"
-                        id="doDaftar">Daftar & Masuk</button></div>
-<p class="muted auth-note">Role admin ditentukan dari database tabel penggunas.</p>
+                            placeholder="name@email.com"></label><label>Password <span class="muted">Admin must fill this in; users may leave it empty if allowed. </span><input id="loginPassword" type="password"
+                            placeholder="Password"></label><button class="btn full" id="doLogin">Login</button></div>
+                <div data-auth-panel="register" class="form-grid one hidden"><label>Full Name<input id="registerName"
+                            placeholder="Customer name"></label><label>Email<input id="registerEmail" type="email"
+                            placeholder="name@email.com"></label><label>Phone Number<input id="registerPhone"
+                            placeholder="08123456789"></label><label>Account Password<input id="registerPassword"
+                            type="password" placeholder="Example: user123"></label><button class="btn full green"
+                        id="doRegister">Register & Login</button></div>
+<p class="muted auth-note">Admin role is determined from the users table in the database.</p>
             </div>
         </div>
         <div id="toast" class="toast"></div>

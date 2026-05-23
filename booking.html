@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Pemesanan - STAYINOW</title>
+  <title>Booking - STAYINOW</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -14,17 +14,17 @@
 <body data-page="booking">
   <header class="topbar">
     <a class="brand" href="index.html">
-      <span class="brand-logo" data-brand-logo>US</span>
+      <span class="brand-logo" data-brand-logo>SN</span>
       <span data-site-name>STAYINOW</span>
     </a>
     <nav class="nav">
-      <a href="index.html">Beranda</a>
-      <a href="index.html#properties">Properti</a>
-      <a href="booking.html">Pemesanan</a>
-      <a href="history.html">Riwayat</a>
+      <a href="index.html">Home</a>
+      <a href="index.html#properties">Properties</a>
+      <a href="booking.html">Booking</a>
+      <a href="history.html">History</a>
     </nav>
     <div class="actions">
-      <button class="btn light small" id="loginBtn">Masuk</button>
+      <button class="btn light small" id="loginBtn">Login</button>
       <button class="menu-btn" id="drawerOpen">☰</button>
     </div>
   </header>
@@ -32,14 +32,14 @@
   <aside class="drawer" id="drawer">
     <div class="drawer-head">
       <div class="brand">
-        <span class="brand-logo" data-brand-logo>US</span>
+        <span class="brand-logo" data-brand-logo>SN</span>
         <span data-site-name>STAYINOW</span>
       </div>
       <button class="icon-btn" id="drawerClose">×</button>
     </div>
     <div class="role-card">
-      <span>Status akun</span>
-      <strong id="roleName">Pengunjung</strong>
+      <span>Account status</span>
+      <strong id="roleName">Guest</strong>
     </div>
     <nav class="drawer-links" id="drawerLinks"></nav>
   </aside>
@@ -48,30 +48,30 @@
 
   <section class="page-hero">
     <div class="page-hero-inner">
-      <p class="eyebrow">Pemesanan</p>
-      <h1>Pesan properti</h1>
-      <p class="muted">Isi data customer, pilih tanggal, lalu sistem akan menghitung harga otomatis.</p>
+      <p class="eyebrow">Booking</p>
+      <h1>Book a property</h1>
+      <p class="muted">Enter customer data, choose dates, and the system will calculate the price automatically.</p>
     </div>
   </section>
 
-  <div class="system-alert hidden" data-system-maintenance>⚠️ Sistem sedang maintenance. Form pemesanan sementara tidak bisa digunakan.</div>
+  <div class="system-alert hidden" data-system-maintenance>⚠️ The system is under maintenance. The booking form is temporarily unavailable.</div>
 
   <main class="section">
     <div id="bookingDetail" class="property-detail-panel"></div>
     <div class="two-col booking-layout">
       <div class="panel">
-        <h2>Form Pemesanan</h2>
+        <h2>Booking Form</h2>
         <form id="bookingForm" class="form-grid">
-          <label>Properti
+          <label>Property
             <select id="bookingProperty" required></select>
           </label>
-          <label>Nama Customer
-            <input id="customerName" required placeholder="Nama lengkap">
+          <label>Customer Name
+            <input id="customerName" required placeholder="Full name">
           </label>
           <label>Email
             <input id="customerEmail" type="email" required placeholder="email@example.com">
           </label>
-          <label>No HP
+          <label>Phone Number
             <input id="customerPhone" required placeholder="08123456789">
           </label>
           <label>Check-in
@@ -80,29 +80,29 @@
           <label>Check-out
             <input id="checkOut" type="date" required>
           </label>
-          <label>Jumlah Tamu
+          <label>Number of Guests
             <div class="guest-stepper">
               <button class="step-btn" type="button" data-step="guests" data-delta="-1">−</button>
               <input id="guests" readonly value="2">
               <button class="step-btn" type="button" data-step="guests" data-delta="1">+</button>
             </div>
           </label>
-          <label>Metode Pembayaran
+          <label>Payment Method
             <select id="paymentMethod">
               <option>Transfer Bank</option>
               <option>Cash</option>
               <option>E-Wallet</option>
             </select>
           </label>
-          <div class="price-preview" id="pricePreview">Pilih properti dan tanggal untuk melihat estimasi harga.</div>
-          <button class="btn full" type="submit">Pesan Sekarang</button>
+          <div class="price-preview" id="pricePreview">Choose a property and dates to see the estimated price.</div>
+          <button class="btn full" type="submit">Book Now</button>
         </form>
       </div>
 
       <div class="panel">
         <p class="eyebrow">Receipt</p>
-        <h2>Bukti Pemesanan</h2>
-        <div id="lastReceipt" class="empty-state">Struk akan muncul setelah pemesanan berhasil.</div>
+        <h2>Booking Receipt</h2>
+        <div id="lastReceipt" class="empty-state">The receipt will appear after a successful booking.</div>
       </div>
     </div>
   </main>
@@ -110,39 +110,39 @@
   <div class="modal hidden" id="loginModal">
     <div class="modal-card">
       <button class="modal-close" id="closeLogin">×</button>
-      <p class="eyebrow">Akun Customer</p>
-      <h2>Masuk / Daftar</h2>
-      <p class="muted">Customer wajib punya akun email sebelum pemesanan. Admin login memakai email khusus.</p>
+      <p class="eyebrow">Customer Account</p>
+      <h2>Login / Register</h2>
+      <p class="muted">Customers need an email account before booking. Admins use registered admin emails.</p>
       <div class="auth-tabs">
-        <button class="active" data-auth-tab="login">Masuk</button>
-        <button data-auth-tab="register">Daftar</button>
+        <button class="active" data-auth-tab="login">Login</button>
+        <button data-auth-tab="register">Register</button>
       </div>
       <div data-auth-panel="login" class="form-grid one">
         <label>Email
-          <input id="loginEmail" type="email" placeholder="nama@email.com">
+          <input id="loginEmail" type="email" placeholder="name@email.com">
         </label>
         <label>Password
-          <span class="muted">admin wajib isi, user boleh kosong jika </span>
+          <span class="muted">admin must fill this in, users may leave it empty if allowed </span>
           <input id="loginPassword" type="password" placeholder="Password">
         </label>
-        <button class="btn full" id="doLogin">Masuk</button>
+        <button class="btn full" id="doLogin">Login</button>
       </div>
       <div data-auth-panel="register" class="form-grid one hidden">
-        <label>Nama Lengkap
-          <input id="registerName" placeholder="Nama customer">
+        <label>Full Name
+          <input id="registerName" placeholder="Customer name">
         </label>
         <label>Email
-          <input id="registerEmail" type="email" placeholder="nama@email.com">
+          <input id="registerEmail" type="email" placeholder="name@email.com">
         </label>
-        <label>No HP
+        <label>Phone Number
           <input id="registerPhone" placeholder="08123456789">
         </label>
-        <label>Password Akun
-          <input id="registerPassword" type="password" placeholder="Boleh isi user123">
+        <label>Account Password
+          <input id="registerPassword" type="password" placeholder="Example: user123">
         </label>
-        <button class="btn full green" id="doRegister">Daftar & Login</button>
+        <button class="btn full green" id="doRegister">Register & Login</button>
       </div>
-      <p class="muted auth-note">Gunakan akun yang sesuai. Role admin ditentukan dari database tabel users.</p>
+      <p class="muted auth-note">Gunakan akun yang sesuai. Admin role is determined from the users table in the database.</p>
     </div>
   </div>
 

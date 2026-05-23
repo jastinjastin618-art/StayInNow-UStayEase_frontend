@@ -7,7 +7,7 @@ const API = {
       ...options,
     });
     if (!response.ok) {
-      let message = 'Terjadi kesalahan server';
+      let message = 'A server error occurred';
       try { message = (await response.json()).error || message; } catch (_) {}
       throw new Error(message);
     }
@@ -21,6 +21,7 @@ const API = {
   getProperties() { return this.request('/properties'); },
   createProperty(payload) { return this.request('/properties', { method: 'POST', body: JSON.stringify(payload) }); },
   getBookings() { return this.request('/bookings'); },
+  getPemesanans() { return this.getBookings(); },
   createBooking(payload) { return this.request('/bookings', { method: 'POST', body: JSON.stringify(payload) }); },
   updateMaintenance(id, status) { return this.request(`/properties/${id}/maintenance`, { method: 'PATCH', body: JSON.stringify({ status }) }); },
   getStats() { return this.request('/stats'); },

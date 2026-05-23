@@ -2,36 +2,31 @@
   publish = "."
 
 [[redirects]]
-  from = "/pemesanan"
-  to = "/pemesanan.html"
+  from = "/booking"
+  to = "/booking.html"
   status = 200
 
 [[redirects]]
-  from = "/booking"
-  to = "/pemesanan.html"
-  status = 301
-
-[[redirects]]
-  from = "/riwayat"
-  to = "/riwayat.html"
+  from = "/pemesanan"
+  to = "/booking.html"
   status = 200
 
 [[redirects]]
   from = "/history"
-  to = "/riwayat.html"
-  status = 301
+  to = "/history.html"
+  status = 200
 
 [[redirects]]
-  from = "/dasbor"
-  to = "/dasbor-admin.html"
+  from = "/riwayat"
+  to = "/history.html"
   status = 200
 
 [[redirects]]
   from = "/admin"
-  to = "/dasbor-admin.html"
-  status = 301
+  to = "/admin.html"
+  status = 200
 
 [[redirects]]
-  from = "/admin.html"
-  to = "/dasbor-admin.html"
-  status = 301
+  from = "/dasbor-admin"
+  to = "/admin.html"
+  status = 200

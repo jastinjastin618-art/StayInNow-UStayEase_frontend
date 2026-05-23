@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Riwayat - STAYINOW</title>
+  <title>Riwayat - StayInNow</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -15,14 +15,16 @@
   <header class="topbar">
     <a class="brand" href="index.html">
       <span class="brand-logo" data-brand-logo>SN</span>
-      <span data-site-name>STAYINOW</span>
+      <span data-site-name>StayInNow</span>
     </a>
+
     <nav class="nav">
       <a href="index.html">Beranda</a>
       <a href="index.html#properties">Properti</a>
       <a href="pemesanan.html">Pemesanan</a>
       <a href="riwayat.html">Riwayat</a>
     </nav>
+
     <div class="actions">
       <button class="btn light small" id="loginBtn">Masuk</button>
       <button class="menu-btn" id="drawerOpen">☰</button>
@@ -33,14 +35,16 @@
     <div class="drawer-head">
       <div class="brand">
         <span class="brand-logo" data-brand-logo>SN</span>
-        <span data-site-name>STAYINOW</span>
+        <span data-site-name>StayInNow</span>
       </div>
       <button class="icon-btn" id="drawerClose">×</button>
     </div>
+
     <div class="role-card">
-      <span>Status akun</span>
-      <strong id="roleName">Pengunjung</strong>
+      <span>Status Akun</span>
+      <strong id="roleName">Tamu</strong>
     </div>
+
     <nav class="drawer-links" id="drawerLinks"></nav>
   </aside>
 
@@ -49,8 +53,10 @@
   <section class="page-hero">
     <div class="page-hero-inner">
       <p class="eyebrow">Riwayat</p>
-      <h1>Riwayat pemesanan</h1>
-      <p class="muted">Lihat daftar pesanan dan struk digital, serta cetak bukti pemesanan.</p>
+      <h1>Riwayat Pemesanan</h1>
+      <p class="muted">
+        Lihat daftar pesanan, buka struk digital, dan cetak bukti pemesanan.
+      </p>
     </div>
   </section>
 
@@ -67,40 +73,65 @@
 
   <div class="modal hidden" id="loginModal">
     <div class="modal-card">
-      <button class="modal-close" id="closeMasuk">×</button>
+      <button class="modal-close" id="closeLogin">×</button>
+
       <p class="eyebrow">Akun Pelanggan</p>
       <h2>Masuk / Daftar</h2>
-      <p class="muted">Pelanggan wajib punya akun email sebelum pemesanan. Admin login memakai email khusus.</p>
+
+      <p class="muted">
+        Pelanggan perlu memiliki akun email sebelum melakukan pemesanan.
+        Admin menggunakan email admin yang sudah terdaftar.
+      </p>
+
       <div class="auth-tabs">
         <button class="active" data-auth-tab="login">Masuk</button>
         <button data-auth-tab="register">Daftar</button>
       </div>
+
       <div data-auth-panel="login" class="form-grid one">
-        <label>Email
+        <label>
+          Email
           <input id="loginEmail" type="email" placeholder="nama@email.com">
         </label>
-        <label>Password
-          <span class="muted">admin wajib isi, pengguna boleh dikosongkan bila belum memakai password</span>
-          <input id="loginPassword" type="password" placeholder="Password">
+
+        <label>
+          Kata Sandi
+          <span class="muted">
+            Admin wajib mengisi kata sandi; pengguna biasa dapat mengosongkannya jika diizinkan.
+          </span>
+          <input id="loginPassword" type="password" placeholder="Kata sandi">
         </label>
-        <button class="btn full" id="doMasuk">Masuk</button>
+
+        <button class="btn full" id="doLogin">Masuk</button>
       </div>
+
       <div data-auth-panel="register" class="form-grid one hidden">
-        <label>Nama Lengkap
+        <label>
+          Nama Lengkap
           <input id="registerName" placeholder="Nama pelanggan">
         </label>
-        <label>Email
+
+        <label>
+          Email
           <input id="registerEmail" type="email" placeholder="nama@email.com">
         </label>
-        <label>No HP
+
+        <label>
+          Nomor HP
           <input id="registerPhone" placeholder="08123456789">
         </label>
-        <label>Password Akun
-          <input id="registerPassword" type="password" placeholder="Boleh isi pengguna123">
+
+        <label>
+          Kata Sandi Akun
+          <input id="registerPassword" type="password" placeholder="Contoh: user123">
         </label>
-        <button class="btn full green" id="doDaftar">Daftar & Masuk</button>
+
+        <button class="btn full green" id="doRegister">Daftar & Masuk</button>
       </div>
-      <p class="muted auth-note">Role admin ditentukan dari database tabel penggunas.</p>
+
+      <p class="muted auth-note">
+        Role admin ditentukan dari tabel users di database.
+      </p>
     </div>
   </div>
 
@@ -112,4 +143,3 @@
 </body>
 
 </html>
-

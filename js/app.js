@@ -37,34 +37,42 @@ function initBranding() {
   qsa('[data-brand-logo]').forEach(el => setLogoElement(el, logoText, logoImage));
   safe('#siteNameInput', el => el.value = name);
   safe('#logoTextInput', el => el.value = logoText);
-  document.title = isAdminPage ? `Admin Dashboard - ${name}` : `${name} - Booking Property`;
+  document.title = isAdminPage 
+    ? `Dashboard Admin - ${name}` 
+    : `${name} - Pemesanan Properti`;
 }
 
 
 function renderSession() {
-  safe('#roleName', el => el.textContent = session ? (isAdmin() ? 'Administrator' : session.email) : 'Guest');
-  safe('#loginBtn', el => el.textContent = session ? (isAdmin() ? 'Admin' : 'Account') : 'Login');
+  safe('#roleName', el => el.textContent = session ? (isAdmin() ? 'Administrator' : session.email) : 'Tamu');
+  safe('#loginBtn', el => el.textContent = session ? (isAdmin() ? 'Admin' : 'Akun') : 'Masuk');
   renderDrawerLinks();
 }
 function renderDrawerLinks() {
   const box = qs('#drawerLinks'); if (!box) return;
   const links = [
-    ['index.html', '🏠 Home'],
-    ['index.html#properties', '🏡 View Properties'],
-    ['booking.html', '🧾 Booking'],
-    ['history.html', '📚 History']
+    ['index.html', '🏠 Beranda'],
+    ['index.html#properties', '🏡 Properti'],
+    ['pemesanan.html', '🧾 Pemesanan'],
+    ['riwayat.html', '📚 Riwayat']
   ];
   let html = links.map(([href,label]) => `<a href="${href}">${label}</a>`).join('');
-  if (isAdmin()) html += `<a href="admin.html">⚙️ Dashboard</a><button type="button" onclick="logout()">🚪 Logout</button>`;
-  else if (session) html += `<button type="button" onclick="logout()">🚪 Logout</button>`;
-  else html += `<button type="button" onclick="openLogin()">🔐 Login</button>`;
+  if (isAdmin()) html += `<a href="admin.html">⚙️ Dasbor Admin</a><button type="button" onclick="logout()">🚪 Keluar</button>`;
+  else if (session) html += `<button type="button" onclick="logout()">🚪 Keluar</button>`;
+  else html += `<button type="button" onclick="openLogin()">🔐 Masuk</button>`;
   box.innerHTML = html;
 }
 function openDrawer(){ safe('#drawer', el => el.classList.add('open')); safe('#overlay', el => el.classList.add('show')); }
 function closeDrawer(){ safe('#drawer', el => el.classList.remove('open')); safe('#overlay', el => el.classList.remove('show')); }
 function openLogin(){ safe('#loginModal', el => el.classList.remove('hidden')); closeDrawer(); }
 function closeLogin(){ safe('#loginModal', el => el.classList.add('hidden')); }
-function logout(){ clearSession(); toast('Logged out successfully.'); if(isAdminPage) setTimeout(()=>location.href='index.html',300); }
+function logout(){
+  clearSession();
+  toast('Berhasil keluar dari akun.');
+  if(isAdminPage) {
+    setTimeout(()=>location.href='index.html',300);
+  }
+}
 
 
 function renderSystemMaintenance(){
@@ -98,7 +106,8 @@ function fillBookingOptions(){
   });
 }
 function renderBookings(){
-  const box = qs('#bookingList'); if(!box) return;
+  const box = qs('#pemesananList');
+  if(!box) return;
   box.innerHTML = bookings.map(b => `<div class="booking-item"><div><b>#${b.id} • ${b.property_name}</b><p class="muted">${b.customer_name} • ${b.check_in} to ${b.check_out} • ${b.guests} guests</p><span class="badge ${b.status || 'paid'}">${b.status || 'paid'}</span></div><div><b>${rupiah(b.total_price)}</b><div class="receipt-actions"><button class="btn light small" onclick="showHistoryReceipt('${b.id}')">Print</button><a class="btn ghost small" href="${API.receiptTxtUrl(b.id)}" target="_blank">Download TXT</a></div></div></div>`).join('') || `<div class="empty-state">No booking history yet.</div>`;
 }
 function showHistoryReceipt(id){
@@ -118,16 +127,27 @@ function renderAdmin(stats={}){
   safe('#adminPropertyRows', el => el.innerHTML = rows);
 }
 
-function goBooking(id){ if(systemMaintenance) return toast('The system is under maintenance. Booking is temporarily closed.'); if(!isLoggedIn()){ openLogin(); return toast('Please register/login with your email before booking.'); } location.href = `booking.html?property=${encodeURIComponent(id)}`; }
+function goBooking(id){
+  if(systemMaintenance) {
+    return toast('Sistem sedang maintenance. Pemesanan ditutup sementara.');
+  }
+
+  if(!isLoggedIn()){
+    openLogin();
+    return toast('Silakan masuk atau daftar terlebih dahulu.');
+  }
+
+  location.href = `pemesanan.html?property=${encodeURIComponent(id)}`;
+}
 function daysBetween(a,b){ return Math.ceil((new Date(b) - new Date(a)) / 86400000); }
 function estimatePrice(property, checkIn, checkOut){ let total=0, weekday=0, weekend=0; let d=new Date(checkIn); const end=new Date(checkOut); while(d<end){ const day=d.getDay(); if(day===0||day===6){ total+=Number(property.weekend_price); weekend++; } else { total+=Number(property.weekday_price); weekday++; } d.setDate(d.getDate()+1); } return {total,weekday,weekend}; }
 function updatePricePreview(){
   const preview = qs('#pricePreview'); if(!preview) return;
   const p = properties.find(x => String(x.id) === String(qs('#bookingProperty')?.value));
   const ci = qs('#checkIn')?.value, co = qs('#checkOut')?.value;
-  if(!p || !ci || !co){ preview.textContent = 'Choose a property and dates to see the estimated price.'; return; }
+  if(!p || !ci || !co){ preview.textContent = 'Pilih properti dan tanggal untuk melihat estimasi harga.'; return; }
   const nights = daysBetween(ci,co);
-  if(nights <= 0){ preview.textContent = 'Check-out must be after check-in.'; return; }
+  if(nights <= 0){ preview.textContent = 'Tanggal check-out harus setelah check-in.'; return; }
   const est = estimatePrice(p,ci,co);
   preview.innerHTML = `${nights} nights • ${est.weekday} weekday + ${est.weekend} weekend • Estimated <strong>${rupiah(est.total)}</strong>`;
 }
@@ -161,7 +181,7 @@ async function loadData(){
 async function toggleMaintenance(id,current){
   if(!isAdmin()) return toast('Admin only.');
   const next = current === 'maintenance' ? 'available' : 'maintenance';
-  try{ await API.updateMaintenance(id,next); toast('Status updated successfully.'); await loadData(); }catch(e){ toast(e.message); }
+  try{ await API.updateMaintenance(id,next); toast('Status berhasil diperbarui.'); await loadData(); }catch(e){ toast(e.message); }
 }
 async function handleAddProperty(e){
   e.preventDefault();
@@ -177,7 +197,7 @@ async function handleAddProperty(e){
     facilities: qs('#newFacilities').value,
     image_url: pendingPropertyImage
   };
-  try{ await API.createProperty(payload); toast('Property added successfully.'); pendingPropertyImage=''; e.target.reset(); safe('#propertyImagePreview', img => img.removeAttribute('src')); await loadData(); showAdminSection('properties'); }catch(err){ toast(err.message); }
+  try{ await API.createProperty(payload); toast('Properti berhasil ditambahkan.'); pendingPropertyImage=''; e.target.reset(); safe('#propertyImagePreview', img => img.removeAttribute('src')); await loadData(); showAdminSection('properties'); }catch(err){ toast(err.message); }
 }
 async function handleLogin(){
   const email = qs('#loginEmail')?.value.trim();
@@ -201,7 +221,7 @@ async function handleRegister(){
   };
   try{
     const user = await API.register(payload);
-    saveSession(user); closeLogin(); toast('Registration successful. You are now logged in.');
+    saveSession(user); closeLogin(); toast('Pendaftaran berhasil. Kamu sudah masuk.');
     safe('#customerEmail', el => el.value = user.email);
     safe('#customerName', el => el.value = user.name || '');
     safe('#customerPhone', el => el.value = user.phone || '');
@@ -238,8 +258,10 @@ function bindEvents(){
   safe('#searchForm', el => el.addEventListener('submit',e=>{ e.preventDefault(); location.href='index.html#properties'; toast('Please choose an available property.'); }));
   safe('#refreshProperties', el => el.addEventListener('click',loadData));
   ['#bookingProperty','#checkIn','#checkOut'].forEach(sel => safe(sel, el => el.addEventListener('change',()=>{ updatePricePreview(); renderBookingDetail(); })));
-  safe('#closeReceiptModal', el => el.addEventListener('click',closeReceiptModal));
-  safe('#bookingForm', el => el.addEventListener('submit', async e => { e.preventDefault(); if(systemMaintenance) return toast('The system is under maintenance. Booking is temporarily closed.'); if(!isLoggedIn()){ openLogin(); return toast('Please register/login before booking.'); } try{ const payload={ property_id: qs('#bookingProperty').value, customer_name: qs('#customerName').value, customer_email: qs('#customerEmail').value, customer_phone: qs('#customerPhone').value, check_in: qs('#checkIn').value, check_out: qs('#checkOut').value, guests: Number(qs('#guests').value), payment_method: qs('#paymentMethod').value }; const result=await API.createBooking(payload); toast('Booking successful.'); showReceipt(result); await loadData(); }catch(err){ toast(err.message); } }));
+  safe('#closeStrukModal', el => 
+    el.addEventListener('click', closeReceiptModal)
+  );
+  safe('#bookingForm', el => el.addEventListener('submit', async e => { e.preventDefault(); if(systemMaintenance) return toast('The system is under maintenance. Booking is temporarily closed.'); if(!isLoggedIn()){ openLogin(); return toast('Please register/login before booking.'); } try{ const payload={ property_id: qs('#bookingProperty').value, customer_name: qs('#customerName').value, customer_email: qs('#customerEmail').value, customer_phone: qs('#customerPhone').value, check_in: qs('#checkIn').value, check_out: qs('#checkOut').value, guests: Number(qs('#guests').value), payment_method: qs('#paymentMethod').value }; const result=await API.createBooking(payload); toast('Pemesanan berhasil.'); showReceipt(result); await loadData(); }catch(err){ toast(err.message); } }));
   safe('#adminDrawerOpen', el => el.addEventListener('click',openAdminDrawer));
   safe('#adminDrawerClose', el => el.addEventListener('click',closeAdminDrawer));
   safe('#adminMenuShortcut', el => el.addEventListener('click',openAdminDrawer));

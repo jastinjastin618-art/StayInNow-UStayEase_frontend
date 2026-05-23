@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Admin Dashboard - STAYINOW</title>
+  <title>Dasbor Admin - StayInNow</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -14,10 +14,11 @@
 <body data-page="admin">
   <div class="admin-layout">
     <header class="admin-top">
-      <a class="brand" href="admin.html">
+      <a class="brand" href="dasbor-admin.html">
         <span class="brand-logo" data-brand-logo>SN</span>
-        <span data-site-name>STAYINOW</span>
+        <span data-site-name>StayInNow</span>
       </a>
+
       <div class="actions">
         <a class="btn light small" href="index.html">Website</a>
         <button class="menu-btn" id="adminDrawerOpen">☰</button>
@@ -30,21 +31,22 @@
           <span class="brand-logo" data-brand-logo>SN</span>
           <span>Admin</span>
         </div>
+
         <button class="icon-btn" id="adminDrawerClose">×</button>
       </div>
 
       <div class="role-card">
-        <span>Restricted Area</span>
+        <span>Area Khusus</span>
         <strong>Administrator</strong>
       </div>
 
       <nav class="admin-menu-list">
-        <button data-admin-target="dashboard" class="active">📊 Dashboard</button>
-        <button data-admin-target="properties">🏡 Manage Properties</button>
-        <button data-admin-target="reports">📄 Reports</button>
+        <button data-admin-target="dashboard" class="active">📊 Dasbor</button>
+        <button data-admin-target="properties">🏡 Kelola Properti</button>
+        <button data-admin-target="reports">📄 Laporan</button>
         <button data-admin-target="branding">🎨 Branding</button>
-        <a href="index.html">↩️ Back to Website</a>
-        <button id="adminLogout">🚪 Logout</button>
+        <a href="index.html">↩️ Kembali ke Website</a>
+        <button id="adminLogout">🚪 Keluar</button>
       </nav>
     </aside>
 
@@ -53,79 +55,125 @@
     <main class="admin-main">
       <div class="admin-hero">
         <div>
-          <p class="eyebrow">Admin Area</p>
-          <h1 id="adminTitle">Admin Dashboard</h1>
-          <p class="muted">This dashboard is separate from the customer website.</p>
+          <p class="eyebrow">Area Admin</p>
+          <h1 id="adminTitle">Dasbor Admin</h1>
+          <p class="muted">
+            Dasbor ini digunakan untuk mengelola data properti, laporan pemesanan,
+            maintenance sistem, dan branding website.
+          </p>
         </div>
-        <button class="btn" id="adminMenuShortcut">Open Admin Menu</button>
+
+        <button class="btn" id="adminMenuShortcut">Buka Menu Admin</button>
       </div>
 
       <section id="admin-dashboard" class="admin-section active">
         <div class="stats-grid" id="statsGrid"></div>
 
         <div class="panel system-panel">
-          <p class="eyebrow">System Maintenance</p>
-          <h2>Whole-site maintenance mode</h2>
-          <p class="muted">When enabled, customers can still view properties, but all booking processes are temporarily disabled.</p>
+          <p class="eyebrow">Maintenance Sistem</p>
+          <h2>Mode Maintenance Seluruh Website</h2>
+
+          <p class="muted">
+            Saat mode ini aktif, pelanggan tetap dapat melihat daftar properti,
+            tetapi seluruh proses pemesanan akan ditutup sementara.
+          </p>
+
           <div class="system-status">
-            <span class="system-pill" id="systemMaintenanceStatus">Loading status...</span>
-            <button class="btn danger" id="systemMaintenanceToggle">Enable System Maintenance</button>
+            <span class="system-pill" id="systemMaintenanceStatus">Memuat status...</span>
+            <button class="btn danger" id="systemMaintenanceToggle">Aktifkan Maintenance Sistem</button>
           </div>
-          <p class="muted admin-help">Property maintenance status stays safe and unchanged.</p>
+
+          <p class="muted admin-help">
+            Status maintenance per properti tetap aman dan tidak akan berubah.
+          </p>
         </div>
       </section>
 
       <section id="admin-properties" class="admin-section">
         <div class="section-head">
           <div>
-            <p class="eyebrow">Property</p>
-            <h2>Add & manage properties</h2>
+            <p class="eyebrow">Properti</p>
+            <h2>Tambah & Kelola Properti</h2>
           </div>
         </div>
 
         <div class="two-col">
           <div class="panel">
-            <h2>Add Property</h2>
-            <form id="addPropertyForm" class="form-grid one">
-              <label>Upload Property Image<input id="propertyImageInput" type="file" accept="image/*"></label>
-              <img id="propertyImagePreview" class="img-preview" alt="Preview">
+            <h2>Tambah Properti</h2>
 
-              <label>Property Name<input id="newPropertyName" required placeholder="Villa Melati"></label>
-              <label>Location<input id="newPropertyLocation" required placeholder="Batam Center"></label>
-              <label>Type
+            <form id="addPropertyForm" class="form-grid one">
+              <label>
+                Unggah Gambar Properti
+                <input id="propertyImageInput" type="file" accept="image/*">
+              </label>
+
+              <img id="propertyImagePreview" class="img-preview" alt="Preview gambar properti">
+
+              <label>
+                Nama Properti
+                <input id="newPropertyName" required placeholder="Contoh: Villa Melati">
+              </label>
+
+              <label>
+                Lokasi
+                <input id="newPropertyLocation" required placeholder="Contoh: Batam Center">
+              </label>
+
+              <label>
+                Tipe
                 <select id="newPropertyType">
-                  <option>Villa</option>
-                  <option>Apartment</option>
-                  <option>HotelRoom</option>
+                  <option value="Villa">Villa</option>
+                  <option value="Apartment">Apartemen</option>
+                  <option value="HotelRoom">Kamar Hotel</option>
                 </select>
               </label>
-              <label>Weekday Price<input id="newWeekdayPrice" type="number" required placeholder="1000000"></label>
-              <label>Weekend Price<input id="newWeekendPrice" type="number" required placeholder="1500000"></label>
-              <label>Status
+
+              <label>
+                Harga Hari Biasa
+                <input id="newWeekdayPrice" type="number" required placeholder="1000000">
+              </label>
+
+              <label>
+                Harga Akhir Pekan
+                <input id="newWeekendPrice" type="number" required placeholder="1500000">
+              </label>
+
+              <label>
+                Status
                 <select id="newPropertyStatus">
-                  <option value="available">Available</option>
+                  <option value="available">Tersedia</option>
                   <option value="maintenance">Maintenance</option>
                 </select>
               </label>
-              <label>Max Guests<input id="newMaxGuests" type="number" value="2" min="1" max="10"></label>
-              <label>Facilities<textarea id="newFacilities" placeholder="WiFi, AC, Pool"></textarea></label>
 
-              <button class="btn full" type="submit">Add Property</button>
+              <label>
+                Maksimal Tamu
+                <input id="newMaxGuests" type="number" value="2" min="1" max="10">
+              </label>
+
+              <label>
+                Fasilitas
+                <textarea id="newFacilities" placeholder="Contoh: WiFi, AC, Kolam Renang"></textarea>
+              </label>
+
+              <button class="btn full" type="submit">Tambah Properti</button>
             </form>
           </div>
 
           <div class="panel table-wrap">
-            <h2>Data Property</h2>
+            <h2>Data Properti</h2>
+
             <table class="data-table">
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Location</th>
-                  <th>Type</th>
+                  <th>Nama</th>
+                  <th>Lokasi</th>
+                  <th>Tipe</th>
                   <th>Status</th>
-                  <th>Action</th>
+                  <th>Aksi</th>
                 </tr>
               </thead>
+
               <tbody id="adminPropertyRows"></tbody>
             </table>
           </div>
@@ -134,12 +182,17 @@
 
       <section id="admin-reports" class="admin-section">
         <div class="panel">
-          <p class="eyebrow">Reporting</p>
-          <h2>Export Reports</h2>
-          <p class="muted">CSV is suitable for table reports. TXT is suitable for simple reports.</p>
+          <p class="eyebrow">Laporan</p>
+          <h2>Ekspor Laporan Pemesanan</h2>
+
+          <p class="muted">
+            Format CSV cocok untuk laporan berbentuk tabel.
+            Format TXT cocok untuk laporan sederhana yang mudah dibaca.
+          </p>
+
           <div class="receipt-actions">
-            <button class="btn" id="downloadReport">Download CSV</button>
-            <button class="btn light" id="downloadReportTxt">Download TXT</button>
+            <button class="btn" id="downloadReport">Unduh CSV</button>
+            <button class="btn light" id="downloadReportTxt">Unduh TXT</button>
           </div>
         </div>
       </section>
@@ -147,18 +200,30 @@
       <section id="admin-branding" class="admin-section">
         <div class="panel">
           <p class="eyebrow">Branding</p>
-          <h2>Change website name & logo</h2>
+          <h2>Ubah Nama Website & Logo</h2>
+
           <div class="form-grid one">
-            <label>Website Name<input id="siteNameInput" placeholder="STAYINOW"></label>
-            <label>Logo Text singkat<input id="logoTextInput" maxlength="4" placeholder="US"></label>
-            <label>Upload Logo Image<input id="logoImageInput" type="file" accept="image/*"></label>
+            <label>
+              Nama Website
+              <input id="siteNameInput" placeholder="StayInNow">
+            </label>
+
+            <label>
+              Teks Logo Singkat
+              <input id="logoTextInput" maxlength="4" placeholder="SN">
+            </label>
+
+            <label>
+              Unggah Logo Gambar
+              <input id="logoImageInput" type="file" accept="image/*">
+            </label>
 
             <div class="preview-logo">
               <span class="brand-logo" data-brand-logo>SN</span>
-              <b data-site-name>STAYINOW</b>
+              <b data-site-name>StayInNow</b>
             </div>
 
-            <button class="btn" id="saveBranding">Save Branding</button>
+            <button class="btn" id="saveBranding">Simpan Branding</button>
             <button class="btn light" id="resetBranding">Reset Branding</button>
           </div>
         </div>
@@ -174,4 +239,3 @@
 </body>
 
 </html>
-

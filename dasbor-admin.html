@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Dasbor Admin - STAYINOW</title>
+  <title>Dasbor Admin - StayInNow</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -16,8 +16,9 @@
     <header class="admin-top">
       <a class="brand" href="dasbor-admin.html">
         <span class="brand-logo" data-brand-logo>SN</span>
-        <span data-site-name>STAYINOW</span>
+        <span data-site-name>StayInNow</span>
       </a>
+
       <div class="actions">
         <a class="btn light small" href="index.html">Website</a>
         <button class="menu-btn" id="adminDrawerOpen">☰</button>
@@ -30,11 +31,12 @@
           <span class="brand-logo" data-brand-logo>SN</span>
           <span>Admin</span>
         </div>
+
         <button class="icon-btn" id="adminDrawerClose">×</button>
       </div>
 
       <div class="role-card">
-        <span>Area khusus</span>
+        <span>Area Khusus</span>
         <strong>Administrator</strong>
       </div>
 
@@ -55,8 +57,11 @@
         <div>
           <p class="eyebrow">Area Admin</p>
           <h1 id="adminTitle">Dasbor Admin</h1>
-          <p class="muted">Dasbor ini terpisah dari website utama pelanggan.</p>
+          <p class="muted">
+            Dasbor ini digunakan untuk mengelola data properti, laporan pemesanan, maintenance sistem, dan branding website.
+          </p>
         </div>
+
         <button class="btn" id="adminMenuShortcut">Buka Menu Admin</button>
       </div>
 
@@ -65,13 +70,21 @@
 
         <div class="panel system-panel">
           <p class="eyebrow">Maintenance Sistem</p>
-          <h2>Mode maintenance seluruh website</h2>
-          <p class="muted">Saat aktif, pelanggan tetap bisa melihat-lihat properti, tetapi semua proses pemesanan akan ditutup sementara.</p>
+          <h2>Mode Maintenance Seluruh Website</h2>
+
+          <p class="muted">
+            Saat mode ini aktif, pelanggan tetap dapat melihat daftar properti,
+            tetapi proses pemesanan akan ditutup sementara.
+          </p>
+
           <div class="system-status">
             <span class="system-pill" id="systemMaintenanceStatus">Memuat status...</span>
             <button class="btn danger" id="systemMaintenanceToggle">Aktifkan Maintenance Sistem</button>
           </div>
-          <p class="muted admin-help">Status maintenance per properti tetap aman dan tidak berubah.</p>
+
+          <p class="muted admin-help">
+            Status maintenance per properti tetap aman dan tidak akan berubah.
+          </p>
         </div>
       </section>
 
@@ -79,36 +92,68 @@
         <div class="section-head">
           <div>
             <p class="eyebrow">Properti</p>
-            <h2>Tambah & kelola properti</h2>
+            <h2>Tambah & Kelola Properti</h2>
           </div>
         </div>
 
         <div class="two-col">
           <div class="panel">
             <h2>Tambah Properti</h2>
-            <form id="addPropertyForm" class="form-grid one">
-              <label>Unggah Gambar Properti<input id="propertyImageInput" type="file" accept="image/*"></label>
-              <img id="propertyImagePreview" class="img-preview" alt="Preview">
 
-              <label>Nama Properti<input id="newPropertyName" required placeholder="Villa Melati"></label>
-              <label>Lokasi<input id="newPropertyLocation" required placeholder="Batam Center"></label>
-              <label>Tipe
+            <form id="addPropertyForm" class="form-grid one">
+              <label>
+                Unggah Gambar Properti
+                <input id="propertyImageInput" type="file" accept="image/*">
+              </label>
+
+              <img id="propertyImagePreview" class="img-preview" alt="Preview gambar properti">
+
+              <label>
+                Nama Properti
+                <input id="newPropertyName" required placeholder="Contoh: Villa Melati">
+              </label>
+
+              <label>
+                Lokasi
+                <input id="newPropertyLocation" required placeholder="Contoh: Batam Center">
+              </label>
+
+              <label>
+                Tipe
                 <select id="newPropertyType">
-                  <option>Villa</option>
+                  <option value="Villa">Villa</option>
                   <option value="Apartment">Apartemen</option>
                   <option value="HotelRoom">Kamar Hotel</option>
                 </select>
               </label>
-              <label>Harga Hari Biasa<input id="newWeekdayPrice" type="number" required placeholder="1000000"></label>
-              <label>Harga Akhir Pekan<input id="newWeekendPrice" type="number" required placeholder="1500000"></label>
-              <label>Status
+
+              <label>
+                Harga Hari Biasa
+                <input id="newWeekdayPrice" type="number" required placeholder="1000000">
+              </label>
+
+              <label>
+                Harga Akhir Pekan
+                <input id="newWeekendPrice" type="number" required placeholder="1500000">
+              </label>
+
+              <label>
+                Status
                 <select id="newPropertyStatus">
                   <option value="available">Tersedia</option>
                   <option value="maintenance">Maintenance</option>
                 </select>
               </label>
-              <label>Maksimal Tamu<input id="newMaxGuests" type="number" value="2" min="1" max="10"></label>
-              <label>Fasilitas<textarea id="newFacilities" placeholder="WiFi, AC, Pool"></textarea></label>
+
+              <label>
+                Maksimal Tamu
+                <input id="newMaxGuests" type="number" value="2" min="1" max="10">
+              </label>
+
+              <label>
+                Fasilitas
+                <textarea id="newFacilities" placeholder="Contoh: WiFi, AC, Kolam Renang"></textarea>
+              </label>
 
               <button class="btn full" type="submit">Tambah Properti</button>
             </form>
@@ -116,6 +161,7 @@
 
           <div class="panel table-wrap">
             <h2>Data Properti</h2>
+
             <table class="data-table">
               <thead>
                 <tr>
@@ -126,6 +172,7 @@
                   <th>Aksi</th>
                 </tr>
               </thead>
+
               <tbody id="adminPropertyRows"></tbody>
             </table>
           </div>
@@ -134,9 +181,14 @@
 
       <section id="admin-reports" class="admin-section">
         <div class="panel">
-          <p class="eyebrow">Reporting</p>
-          <h2>Export laporan</h2>
-          <p class="muted">CSV cocok untuk laporan tabel. TXT cocok untuk laporan sederhana.</p>
+          <p class="eyebrow">Laporan</p>
+          <h2>Ekspor Laporan Pemesanan</h2>
+
+          <p class="muted">
+            Format CSV cocok untuk laporan berbentuk tabel.
+            Format TXT cocok untuk laporan sederhana yang mudah dibaca.
+          </p>
+
           <div class="receipt-actions">
             <button class="btn" id="downloadReport">Unduh CSV</button>
             <button class="btn light" id="downloadReportTxt">Unduh TXT</button>
@@ -147,15 +199,27 @@
       <section id="admin-branding" class="admin-section">
         <div class="panel">
           <p class="eyebrow">Branding</p>
-          <h2>Ubah nama website & logo</h2>
+          <h2>Ubah Nama Website & Logo</h2>
+
           <div class="form-grid one">
-            <label>Nama Website<input id="siteNameInput" placeholder="STAYINOW"></label>
-            <label>Teks Logo Singkat<input id="logoTextInput" maxlength="4" placeholder="SN"></label>
-            <label>Unggah Logo Gambar<input id="logoImageInput" type="file" accept="image/*"></label>
+            <label>
+              Nama Website
+              <input id="siteNameInput" placeholder="StayInNow">
+            </label>
+
+            <label>
+              Teks Logo Singkat
+              <input id="logoTextInput" maxlength="4" placeholder="SN">
+            </label>
+
+            <label>
+              Unggah Logo Gambar
+              <input id="logoImageInput" type="file" accept="image/*">
+            </label>
 
             <div class="preview-logo">
               <span class="brand-logo" data-brand-logo>SN</span>
-              <b data-site-name>STAYINOW</b>
+              <b data-site-name>StayInNow</b>
             </div>
 
             <button class="btn" id="saveBranding">Simpan Branding</button>
@@ -174,4 +238,3 @@
 </body>
 
 </html>
-

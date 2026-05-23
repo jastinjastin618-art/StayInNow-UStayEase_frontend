@@ -3,30 +3,30 @@
 
 [[redirects]]
   from = "/booking"
-  to = "/booking.html"
+  to = "/pemesanan.html"
   status = 200
 
 [[redirects]]
   from = "/pemesanan"
-  to = "/booking.html"
+  to = "/pemesanan.html"
   status = 200
 
 [[redirects]]
   from = "/history"
-  to = "/history.html"
+  to = "/riwayat.html"
   status = 200
 
 [[redirects]]
   from = "/riwayat"
-  to = "/history.html"
+  to = "/riwayat.html"
   status = 200
 
 [[redirects]]
   from = "/admin"
-  to = "/admin.html"
+  to = "/dasbor-admin.html"
   status = 200
 
 [[redirects]]
   from = "/dasbor-admin"
-  to = "/admin.html"
+  to = "/dasbor-admin.html"
   status = 200

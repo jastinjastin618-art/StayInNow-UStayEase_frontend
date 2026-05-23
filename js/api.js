@@ -2,9 +2,7 @@ const API = {
   base: window.API_BASE_URL,
   async request(path, options = {}) {
     const url = `${this.base}${path}`;
-console.log("API Request:", url);
-
-const response = await fetch(url, {
+    const response = await fetch(url, {
       headers: { 'Content-Type': 'application/json', ...(options.headers || {}) },
       ...options,
     });

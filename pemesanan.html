@@ -11,17 +11,17 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body data-page="booking">
+<body data-page="pemesanan">
   <header class="topbar">
     <a class="brand" href="index.html">
-      <span class="brand-logo" data-brand-logo>US</span>
+      <span class="brand-logo" data-brand-logo>SN</span>
       <span data-site-name>STAYINOW</span>
     </a>
     <nav class="nav">
       <a href="index.html">Beranda</a>
       <a href="index.html#properties">Properti</a>
-      <a href="booking.html">Pemesanan</a>
-      <a href="history.html">Riwayat</a>
+      <a href="pemesanan.html">Pemesanan</a>
+      <a href="riwayat.html">Riwayat</a>
     </nav>
     <div class="actions">
       <button class="btn light small" id="loginBtn">Masuk</button>
@@ -32,7 +32,7 @@
   <aside class="drawer" id="drawer">
     <div class="drawer-head">
       <div class="brand">
-        <span class="brand-logo" data-brand-logo>US</span>
+        <span class="brand-logo" data-brand-logo>SN</span>
         <span data-site-name>STAYINOW</span>
       </div>
       <button class="icon-btn" id="drawerClose">×</button>
@@ -50,22 +50,22 @@
     <div class="page-hero-inner">
       <p class="eyebrow">Pemesanan</p>
       <h1>Pesan properti</h1>
-      <p class="muted">Isi data customer, pilih tanggal, lalu sistem akan menghitung harga otomatis.</p>
+      <p class="muted">Isi data pelanggan, pilih tanggal, lalu sistem akan menghitung harga otomatis.</p>
     </div>
   </section>
 
   <div class="system-alert hidden" data-system-maintenance>⚠️ Sistem sedang maintenance. Form pemesanan sementara tidak bisa digunakan.</div>
 
   <main class="section">
-    <div id="bookingDetail" class="property-detail-panel"></div>
-    <div class="two-col booking-layout">
+    <div id="pemesananDetail" class="property-detail-panel"></div>
+    <div class="two-col pemesanan-layout">
       <div class="panel">
         <h2>Form Pemesanan</h2>
-        <form id="bookingForm" class="form-grid">
+        <form id="pemesananForm" class="form-grid">
           <label>Properti
-            <select id="bookingProperty" required></select>
+            <select id="pemesananProperty" required></select>
           </label>
-          <label>Nama Customer
+          <label>Nama Pelanggan
             <input id="customerName" required placeholder="Nama lengkap">
           </label>
           <label>Email
@@ -100,19 +100,19 @@
       </div>
 
       <div class="panel">
-        <p class="eyebrow">Receipt</p>
+        <p class="eyebrow">Struk</p>
         <h2>Bukti Pemesanan</h2>
-        <div id="lastReceipt" class="empty-state">Struk akan muncul setelah pemesanan berhasil.</div>
+        <div id="lastStruk" class="empty-state">Struk akan muncul setelah pemesanan berhasil.</div>
       </div>
     </div>
   </main>
 
   <div class="modal hidden" id="loginModal">
     <div class="modal-card">
-      <button class="modal-close" id="closeLogin">×</button>
-      <p class="eyebrow">Akun Customer</p>
+      <button class="modal-close" id="closeMasuk">×</button>
+      <p class="eyebrow">Akun Pelanggan</p>
       <h2>Masuk / Daftar</h2>
-      <p class="muted">Customer wajib punya akun email sebelum pemesanan. Admin login memakai email khusus.</p>
+      <p class="muted">Pelanggan wajib punya akun email sebelum pemesanan. Admin login memakai email khusus.</p>
       <div class="auth-tabs">
         <button class="active" data-auth-tab="login">Masuk</button>
         <button data-auth-tab="register">Daftar</button>
@@ -122,14 +122,14 @@
           <input id="loginEmail" type="email" placeholder="nama@email.com">
         </label>
         <label>Password
-          <span class="muted">admin wajib isi, user boleh kosong jika </span>
+          <span class="muted">admin wajib isi, pengguna boleh dikosongkan bila belum memakai password</span>
           <input id="loginPassword" type="password" placeholder="Password">
         </label>
-        <button class="btn full" id="doLogin">Masuk</button>
+        <button class="btn full" id="doMasuk">Masuk</button>
       </div>
       <div data-auth-panel="register" class="form-grid one hidden">
         <label>Nama Lengkap
-          <input id="registerName" placeholder="Nama customer">
+          <input id="registerName" placeholder="Nama pelanggan">
         </label>
         <label>Email
           <input id="registerEmail" type="email" placeholder="nama@email.com">
@@ -138,11 +138,11 @@
           <input id="registerPhone" placeholder="08123456789">
         </label>
         <label>Password Akun
-          <input id="registerPassword" type="password" placeholder="Boleh isi user123">
+          <input id="registerPassword" type="password" placeholder="Boleh isi pengguna123">
         </label>
-        <button class="btn full green" id="doRegister">Daftar & Login</button>
+        <button class="btn full green" id="doDaftar">Daftar & Masuk</button>
       </div>
-      <p class="muted auth-note">Gunakan akun yang sesuai. Role admin ditentukan dari database tabel users.</p>
+      <p class="muted auth-note">Gunakan akun yang sesuai. Role admin ditentukan dari database tabel penggunas.</p>
     </div>
   </div>
 
